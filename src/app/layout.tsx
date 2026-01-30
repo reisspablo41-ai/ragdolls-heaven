@@ -62,8 +62,6 @@ function Footer() {
             <h4 className="mb-4 font-semibold">Contact</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>Email: support@ragdollheaven.net</li>
-              <li>Location: San Francisco, CA</li>
-              <li>Hours: Mon-Fri 9am - 6pm</li>
             </ul>
           </div>
           <div>
