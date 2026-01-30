@@ -1,0 +1,7 @@
+ALTER TABLE public.kittens
+DROP COLUMN IF EXISTS mother_name,
+DROP COLUMN IF EXISTS father_name,
+DROP COLUMN IF EXISTS breed,
+DROP COLUMN IF EXISTS color,
+DROP COLUMN IF EXISTS pattern,
+DROP COLUMN IF EXISTS dna_results;
