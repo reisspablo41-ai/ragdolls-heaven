@@ -16,6 +16,7 @@ interface KittenProps {
     description?: string | null
     // Changed: accept image_url instead of 'image' which was numeric/mock
     image_url?: string | null | undefined
+    age_weeks?: number | null | undefined
 }
 
 export function KittenCard({ kitten }: { kitten: KittenProps }) {
