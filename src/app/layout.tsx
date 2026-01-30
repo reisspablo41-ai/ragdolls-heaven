@@ -4,6 +4,7 @@ import './globals.css'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
+import Script from 'next/script'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -92,6 +93,7 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Script src="//code.jivosite.com/widget/oeXJuBwz0H" strategy="afterInteractive" />
       </body>
     </html>
   )
