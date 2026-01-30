@@ -8,7 +8,7 @@ export function FaqSection() {
         },
         {
             question: "Do you ship your kittens?",
-            answer: "Yes, we ship kittens! While we love it when new owners pick up their kittens in person, we understand that's not always possible. We offer safe and reliable shipping options using a personalized flight nanny who will accompany your kitten in the cabin for an additional fee. We do not ship kittens as cargo to ensure their safety and comfort."
+            answer: "Yes, we ship kittens! While we love it when new owners pick up their kittens in person, we understand that's not always possible. We offer safe and reliable shipping options using a personalized flight nanny who will accompany your kitten in the cabin."
         },
         {
             question: "At what age can I bring my kitten home?",
@@ -20,7 +20,7 @@ export function FaqSection() {
         },
         {
             question: "Can I visit the cattery?",
-            answer: "For the safety and health of our young kittens (who haven't received all vaccinations yet), we do not allow casual visits. However, we are happy to schedule video calls so you can see the kittens and their environment live."
+            answer: "For the safety and health of our young kittens (who haven't received all vaccinations yet), we do not allow casual visits. However, we accept visits based on appointments. You need to make a reservation for a kitten to get an appointment scheduled for pick up."
         }
     ]
 
