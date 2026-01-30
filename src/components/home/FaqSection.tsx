@@ -4,7 +4,7 @@ export function FaqSection() {
     const faqs = [
         {
             question: "What is included with my kitten?",
-            answer: "Every Velvet Paws kitten comes with TICA registration papers, age-appropriate vaccinations, a microchip, a 2-year genetic health guarantee (HCM/PKD), a starter food kit, and a blanket that smells like mom to help with the transition."
+            answer: "Every Ragdoll Heaven kitten comes with TICA registration papers, age-appropriate vaccinations, a microchip, a 2-year genetic health guarantee (HCM/PKD), a starter food kit, and a blanket that smells like mom to help with the transition."
         },
         {
             question: "Do you ship your kittens?",

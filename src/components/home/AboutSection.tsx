@@ -40,7 +40,7 @@ export function AboutSection() {
                         </div>
 
                         <div className="bg-background p-6 rounded-xl border border-border/50 shadow-sm">
-                            <h3 className="font-serif text-xl font-bold mb-3">The "Velvet Paws" Difference</h3>
+                            <h3 className="font-serif text-xl font-bold mb-3">The "Ragdoll Heaven" Difference</h3>
                             <p className="text-muted-foreground mb-4">
                                 Many catteries prioritize color or size, but we prioritize <b>temperament</b> and <b>health</b>. We are a TICA-registered cattery committed to preserving the gentle nature that makes this breed so special.
                             </p>

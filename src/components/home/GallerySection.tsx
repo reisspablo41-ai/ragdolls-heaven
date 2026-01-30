@@ -15,7 +15,7 @@ export function GallerySection() {
         <section className="py-24 bg-background">
             <div className="container px-4 mx-auto text-center">
                 <div className="mb-12 space-y-4">
-                    <h2 className="font-serif text-3xl md:text-4xl font-bold">Life at Velvet Paws</h2>
+                    <h2 className="font-serif text-3xl md:text-4xl font-bold">Life at Ragdoll Heaven</h2>
                     <p className="text-muted-foreground text-lg">
                         Follow our daily adventures on Instagram.
                     </p>
@@ -38,7 +38,7 @@ export function GallerySection() {
                 <Link href="https://instagram.com" target="_blank">
                     <Button variant="outline" size="lg" className="rounded-full gap-2">
                         <Instagram className="w-5 h-5" />
-                        Follow @VelvetPaws
+                        Follow @RagdollHeaven
                     </Button>
                 </Link>
             </div>

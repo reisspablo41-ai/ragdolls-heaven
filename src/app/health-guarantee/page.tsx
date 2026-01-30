@@ -44,7 +44,7 @@ export default function HealthGuaranteePage() {
                                 2-Year Genetic Warranty
                             </h2>
                             <p className="text-muted-foreground leading-relaxed">
-                                Every Velvet Paws kitten comes with a comprehensive 2-year genetic health guarantee. This covers all known genetic defects that can affect the Ragdoll breed, including Hypertrophic Cardiomyopathy (HCM) and Polycystic Kidney Disease (PKD).
+                                Every Ragdoll Heaven kitten comes with a comprehensive 2-year genetic health guarantee. This covers all known genetic defects that can affect the Ragdoll breed, including Hypertrophic Cardiomyopathy (HCM) and Polycystic Kidney Disease (PKD).
                             </p>
                             <p className="text-muted-foreground leading-relaxed mt-4">
                                 We test all our breeding parents to ensure they are negative for these markers, significantly reducing the risk of passing these conditions to their offspring.

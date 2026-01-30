@@ -23,7 +23,7 @@ export function HeroSection() {
                     <span className="text-white/90">A Cat.</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-white/95 max-w-3xl mx-auto drop-shadow-md font-medium leading-relaxed">
-                    Velvet Paws Ragdolls are bred for that famous "flop," piercing blue eyes, and a dog-like devotion to their humans. Experience the difference of a kitten raised with heart.
+                    Ragdoll Heaven is bred for that famous "flop," piercing blue eyes, and a dog-like devotion to their humans. Experience the difference of a kitten raised with heart.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8">
                     <Link href="/kittens">

@@ -10,7 +10,7 @@ export function Testimonials() {
         {
             name: "Sarah & John",
             location: "New York, NY",
-            content: "We couldn't be happier with our kitten from Velvet Paws. He is so well-socialized and affectionate. The whole process was professional and transparent.",
+            content: "We couldn't be happier with our kitten from Ragdoll Heaven. He is so well-socialized and affectionate. The whole process was professional and transparent.",
             rating: 5,
             initials: "SJ"
         },

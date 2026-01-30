@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Playfair_Display, Lato } from 'next/font/google'
 import './globals.css'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 
 const playfair = Playfair_Display({
@@ -19,56 +20,22 @@ const lato = Lato({
 
 export const metadata: Metadata = {
   title: 'Ragdoll Heaven | Premium Cattery',
-  description: 'Breeding minimal purebred Ragdoll kittens with love and care.',
+  description: 'Ragdoll Heaven is a premium cattery dedicated to breeding healthy, socialized, and beautiful Ragdoll kittens. Located in minimal, loving environments.',
+  keywords: ['Ragdoll kittens', 'Ragdoll cats', 'Kittens for sale', 'TICA registered', 'Breeder'],
+  icons: {
+    icon: '/ragdoll.png',
+    shortcut: '/ragdoll.png',
+    apple: '/ragdoll.png'
+  },
+  openGraph: {
+    title: 'Ragdoll Heaven | Premium Ragdoll Kittens',
+    description: 'Find your perfect Ragdoll kitten. Health tested, TICA registered, and raised with love.',
+    images: ['/ragdoll.png'],
+    type: 'website',
+  }
 }
 
-function Navbar() {
-  return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link href="/" className="font-serif text-2xl font-bold tracking-tight text-primary">
-          Ragdoll Heaven
-        </Link>
-        <div className="hidden items-center gap-8 md:flex">
-          <Link href="/kittens" className="text-sm font-medium hover:text-primary transition-colors">
-            Available Kittens
-          </Link>
-          <Link href="/care" className="text-sm font-medium hover:text-primary transition-colors">
-            Education & Care
-          </Link>
-          <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">
-            About Us
-          </Link>
-          <Link href="/apply">
-            <Button variant="default" className="rounded-full px-6">
-              Apply Now
-            </Button>
-          </Link>
-        </div>
-        {/* Mobile Menu (Simplified for now) */}
-        <div className="md:hidden">
-          <Button variant="ghost" size="icon">
-            <span className="sr-only">Open menu</span>
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="4" y1="12" x2="20" y2="12" />
-              <line x1="4" y1="6" x2="20" y2="6" />
-              <line x1="4" y1="18" x2="20" y2="18" />
-            </svg>
-          </Button>
-        </div>
-      </div>
-    </nav>
-  )
-}
+import { Navbar } from '@/components/layout/navbar'
 
 function Footer() {
   return (
@@ -94,7 +61,7 @@ function Footer() {
           <div>
             <h4 className="mb-4 font-semibold">Contact</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>Email: contact@ragdollheaven.com</li>
+              <li>Email: support@ragdollheaven.net</li>
               <li>Location: San Francisco, CA</li>
               <li>Hours: Mon-Fri 9am - 6pm</li>
             </ul>

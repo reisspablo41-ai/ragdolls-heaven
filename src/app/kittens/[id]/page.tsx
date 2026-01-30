@@ -9,6 +9,8 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { createClient } from '@/utils/supabase/server'
+import { InquiryForm } from '@/components/kittens/inquiry-form'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 
 export default async function KittenProfile({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params
@@ -29,7 +31,13 @@ export default async function KittenProfile({ params }: { params: Promise<{ id: 
         notFound()
     }
 
-    const imageUrl = kitten.kitten_images?.[0]?.image_url
+    // Collect all images: from the related table and the main image validation
+    const images = kitten.kitten_images?.map((k: any) => k.image_url) || []
+    // If no related images, fall back to the main image column if it exists and isn't already included (though typical setup might duplicate)
+    // For simplicity, if gallery is empty, use main image.
+    if (images.length === 0 && kitten.image_url) {
+        images.push(kitten.image_url)
+    }
 
     return (
         <div className="container mx-auto px-4 py-12">
@@ -42,26 +50,51 @@ export default async function KittenProfile({ params }: { params: Promise<{ id: 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 {/* Left Column: Images */}
                 <div className="space-y-4">
-                    <div className="relative aspect-square w-full rounded-2xl overflow-hidden shadow-xl bg-muted">
-                        {imageUrl ? (
-                            <Image
-                                src={imageUrl}
-                                alt={kitten.name}
-                                fill
-                                className="object-cover"
-                                priority
-                            />
-                        ) : (
-                            <div className="flex items-center justify-center h-full text-muted-foreground">No Image</div>
+                    <Carousel className="w-full">
+                        <CarouselContent>
+                            {images.length > 0 ? (
+                                images.map((url: string, index: number) => (
+                                    <CarouselItem key={index}>
+                                        <div className="relative aspect-square w-full rounded-2xl overflow-hidden shadow-xl bg-muted">
+                                            <Image
+                                                src={url}
+                                                alt={`${kitten.name} - Image ${index + 1}`}
+                                                fill
+                                                className="object-cover"
+                                                priority={index === 0}
+                                            />
+                                            <div className="absolute top-6 right-6 z-10">
+                                                <Badge className={`text-lg px-4 py-1 ${kitten.status === 'Available' ? 'bg-green-500/90' :
+                                                    kitten.status === 'Reserved' ? 'bg-amber-500/90' : 'bg-red-500/90'
+                                                    }`}>
+                                                    {kitten.status}
+                                                </Badge>
+                                            </div>
+                                        </div>
+                                    </CarouselItem>
+                                ))
+                            ) : (
+                                <CarouselItem>
+                                    <div className="relative aspect-square w-full rounded-2xl overflow-hidden shadow-xl bg-muted flex items-center justify-center">
+                                        <div className="text-muted-foreground">No Image</div>
+                                        <div className="absolute top-6 right-6">
+                                            <Badge className={`text-lg px-4 py-1 ${kitten.status === 'Available' ? 'bg-green-500/90' :
+                                                kitten.status === 'Reserved' ? 'bg-amber-500/90' : 'bg-red-500/90'
+                                                }`}>
+                                                {kitten.status}
+                                            </Badge>
+                                        </div>
+                                    </div>
+                                </CarouselItem>
+                            )}
+                        </CarouselContent>
+                        {images.length > 1 && (
+                            <>
+                                <CarouselPrevious className="left-4" />
+                                <CarouselNext className="right-4" />
+                            </>
                         )}
-                        <div className="absolute top-6 right-6">
-                            <Badge className={`text-lg px-4 py-1 ${kitten.status === 'Available' ? 'bg-green-500/90' :
-                                kitten.status === 'Reserved' ? 'bg-amber-500/90' : 'bg-red-500/90'
-                                }`}>
-                                {kitten.status}
-                            </Badge>
-                        </div>
-                    </div>
+                    </Carousel>
                 </div>
 
                 {/* Right Column: Details & Form */}
@@ -105,31 +138,7 @@ export default async function KittenProfile({ params }: { params: Promise<{ id: 
                                 <CardTitle className="font-serif">Inquire about {kitten.name}</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <form className="space-y-4">
-                                    <input type="hidden" name="kitten_id" value={kitten.id} />
-                                    <input type="hidden" name="kitten_name" value={kitten.name} />
-
-                                    <div className="space-y-2">
-                                        <Label htmlFor="kitten_display">Kitten</Label>
-                                        <Input id="kitten_display" value={kitten.name} readOnly className="bg-muted" />
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                            <Label htmlFor="name">Name</Label>
-                                            <Input id="name" name="name" placeholder="Your name" required />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="email">Email</Label>
-                                            <Input id="email" name="email" type="email" placeholder="john@example.com" required />
-                                        </div>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="message">Message</Label>
-                                        <Textarea id="message" name="message" placeholder={`I'm interested in ${kitten.name}...`} required />
-                                    </div>
-                                    <Button size="lg" className="w-full">Send Inquiry</Button>
-                                </form>
+                                <InquiryForm kitten={{ id: kitten.id, name: kitten.name }} />
                             </CardContent>
                         </Card>
                     )}

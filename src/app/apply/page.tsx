@@ -7,17 +7,83 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { Separator } from '@/components/ui/separator'
 import { Checkbox } from '@/components/ui/checkbox'
+import { sendApplicationEmail } from '@/actions/email-actions'
+import Link from 'next/link'
 
 export default function ApplyPage() {
     const [step, setStep] = useState(1)
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [submitted, setSubmitted] = useState(false)
     const totalSteps = 3
 
-    // Mock submission handler
-    const handleSubmit = (e: React.FormEvent) => {
+    // Collect form data
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        alert("Application Submitted! (This is a demo)")
+        setIsSubmitting(true)
+
+        // Gather data from form elements
+        const getVal = (id: string) => (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement)?.value || ''
+        const getChecked = (id: string) => (document.getElementById(id) as HTMLInputElement)?.checked
+
+        // Allergies
+        const allergies = (document.getElementById('allergies-yes') as HTMLInputElement)?.ariaChecked === 'true' ||
+            (document.getElementById('allergies-yes') as HTMLInputElement)?.getAttribute('data-state') === 'checked' ? 'Yes' : 'No'
+
+        // Housing
+        const isHouse = (document.getElementById('house') as HTMLInputElement)?.ariaChecked === 'true' ||
+            (document.getElementById('house') as HTMLInputElement)?.getAttribute('data-state') === 'checked'
+        const housingType = isHouse ? 'House' : 'Apartment'
+
+        // Gender Pref
+        const genderPref = []
+        if ((document.getElementById('pref-male') as HTMLInputElement)?.getAttribute('aria-checked') === 'true') genderPref.push('Male')
+        if ((document.getElementById('pref-female') as HTMLInputElement)?.getAttribute('aria-checked') === 'true') genderPref.push('Female')
+        if ((document.getElementById('pref-no') as HTMLInputElement)?.getAttribute('aria-checked') === 'true') genderPref.push('No Preference')
+
+        const data = {
+            firstName: getVal('firstName'),
+            lastName: getVal('lastName'),
+            email: getVal('email'),
+            phone: getVal('phone'),
+            address: getVal('address'),
+            allergies,
+            otherPets: (document.getElementById('otherPets') as HTMLTextAreaElement)?.value || '',
+            housingType,
+            genderPref,
+            colorPref: (document.getElementById('colorPref') as HTMLTextAreaElement)?.value || '',
+            whyRagdoll: (document.getElementById('whyRagdoll') as HTMLTextAreaElement)?.value || '',
+        }
+
+        const result = await sendApplicationEmail(data)
+
+        setIsSubmitting(false)
+        if (result.success) {
+            setSubmitted(true)
+        } else {
+            alert('Something went wrong. Please try again.')
+        }
+    }
+
+    if (submitted) {
+        return (
+            <div className="container mx-auto px-4 py-24 text-center">
+                <Card className="max-w-xl mx-auto p-12">
+                    <div className="mb-6 flex justify-center">
+                        <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                    </div>
+                    <CardTitle className="text-3xl font-serif mb-4">Application Received!</CardTitle>
+                    <p className="text-muted-foreground mb-8 text-lg">
+                        Thank you for applying. We have sent a confirmation email to you. We review applications within 48 hours and will be in touch shortly.
+                    </p>
+                    <Link href="/kittens">
+                        <Button size="lg">Browse Available Kittens</Button>
+                    </Link>
+                </Card>
+            </div>
+        )
     }
 
     return (
@@ -107,24 +173,24 @@ export default function ApplyPage() {
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-2">
                                                 <Label htmlFor="firstName">First Name</Label>
-                                                <Input id="firstName" placeholder="Jane" required />
+                                                <Input id="firstName" name="firstName" placeholder="Jane" required />
                                             </div>
                                             <div className="space-y-2">
                                                 <Label htmlFor="lastName">Last Name</Label>
-                                                <Input id="lastName" placeholder="Doe" required />
+                                                <Input id="lastName" name="lastName" placeholder="Doe" required />
                                             </div>
                                         </div>
                                         <div className="space-y-2">
                                             <Label htmlFor="email">Email</Label>
-                                            <Input id="email" type="email" placeholder="jane@example.com" required />
+                                            <Input id="email" name="email" type="email" placeholder="jane@example.com" required />
                                         </div>
                                         <div className="space-y-2">
                                             <Label htmlFor="phone">Phone Number</Label>
-                                            <Input id="phone" type="tel" placeholder="(555) 123-4567" required />
+                                            <Input id="phone" name="phone" type="tel" placeholder="(555) 123-4567" required />
                                         </div>
                                         <div className="space-y-2">
                                             <Label htmlFor="address">Full Address</Label>
-                                            <Textarea id="address" placeholder="1234 Cat St, Meow City, CA 90210" required />
+                                            <Textarea id="address" name="address" placeholder="1234 Cat St, Meow City, CA 90210" required />
                                         </div>
                                     </>
                                 )}
@@ -134,7 +200,7 @@ export default function ApplyPage() {
                                     <>
                                         <div className="space-y-3">
                                             <Label>Do any members of your household have cat allergies?</Label>
-                                            <RadioGroup defaultValue="no">
+                                            <RadioGroup defaultValue="no" name="allergies">
                                                 <div className="flex items-center space-x-2">
                                                     <RadioGroupItem value="yes" id="allergies-yes" />
                                                     <Label htmlFor="allergies-yes">Yes</Label>
@@ -148,12 +214,12 @@ export default function ApplyPage() {
 
                                         <div className="space-y-3">
                                             <Label>Do you have other pets?</Label>
-                                            <Textarea placeholder="Please list type, age, and temperament of current pets..." />
+                                            <Textarea id="otherPets" name="otherPets" placeholder="Please list type, age, and temperament of current pets..." />
                                         </div>
 
                                         <div className="space-y-3">
                                             <Label>Housing Type</Label>
-                                            <RadioGroup defaultValue="house">
+                                            <RadioGroup defaultValue="house" name="housingType">
                                                 <div className="flex items-center space-x-2">
                                                     <RadioGroupItem value="house" id="house" />
                                                     <Label htmlFor="house">House</Label>
@@ -174,15 +240,15 @@ export default function ApplyPage() {
                                             <Label>Gender Preference</Label>
                                             <div className="flex flex-col gap-2">
                                                 <div className="flex items-center space-x-2">
-                                                    <Checkbox id="pref-male" />
+                                                    <Checkbox id="pref-male" name="genderPref" />
                                                     <Label htmlFor="pref-male">Male</Label>
                                                 </div>
                                                 <div className="flex items-center space-x-2">
-                                                    <Checkbox id="pref-female" />
+                                                    <Checkbox id="pref-female" name="genderPref" />
                                                     <Label htmlFor="pref-female">Female</Label>
                                                 </div>
                                                 <div className="flex items-center space-x-2">
-                                                    <Checkbox id="pref-no" />
+                                                    <Checkbox id="pref-no" name="genderPref" />
                                                     <Label htmlFor="pref-no">No Preference</Label>
                                                 </div>
                                             </div>
@@ -190,12 +256,12 @@ export default function ApplyPage() {
 
                                         <div className="space-y-3">
                                             <Label>Color/Pattern Preference</Label>
-                                            <Textarea placeholder="e.g. Blue Bicolor, Seal Mitted... (Optional)" />
+                                            <Textarea id="colorPref" name="colorPref" placeholder="e.g. Blue Bicolor, Seal Mitted... (Optional)" />
                                         </div>
 
                                         <div className="space-y-3">
                                             <Label>Why a Ragdoll?</Label>
-                                            <Textarea placeholder="Tell us why you chose this breed..." required />
+                                            <Textarea id="whyRagdoll" name="whyRagdoll" placeholder="Tell us why you chose this breed..." required />
                                         </div>
                                     </>
                                 )}
@@ -215,8 +281,8 @@ export default function ApplyPage() {
                                         Next Step
                                     </Button>
                                 ) : (
-                                    <Button type="submit" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                                        Submit Application
+                                    <Button type="submit" disabled={isSubmitting} className="bg-primary text-primary-foreground hover:bg-primary/90">
+                                        {isSubmitting ? 'Sending...' : 'Submit Application'}
                                     </Button>
                                 )}
                             </CardFooter>
