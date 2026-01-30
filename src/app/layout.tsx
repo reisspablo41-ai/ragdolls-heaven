@@ -75,7 +75,7 @@ function Footer() {
           </div>
         </div>
         <div className="mt-12 border-t pt-8 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Ragdoll Heaven. All rights reserved.
+          © 2024 Ragdoll Heaven. All rights reserved.
         </div>
       </div>
     </footer>

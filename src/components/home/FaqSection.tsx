@@ -8,7 +8,7 @@ export function FaqSection() {
         },
         {
             question: "Do you ship your kittens?",
-            answer: "We prefer new owners to pick up their kittens in person to minimize stress. However, we can arrange for a personalized flight nanny who will accompany your kitten in the cabin for an additional fee. We do not ship kittens as cargo."
+            answer: "Yes, we ship kittens! While we love it when new owners pick up their kittens in person, we understand that's not always possible. We offer safe and reliable shipping options using a personalized flight nanny who will accompany your kitten in the cabin for an additional fee. We do not ship kittens as cargo to ensure their safety and comfort."
         },
         {
             question: "At what age can I bring my kitten home?",
