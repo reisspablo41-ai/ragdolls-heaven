@@ -50,9 +50,17 @@ export function Testimonials() {
                                     <Card className="border-none shadow-none bg-transparent">
                                         <CardContent className="flex flex-col items-center p-6 space-y-6">
                                             <div className="flex justify-center gap-1">
-                                                {[...Array(t.rating)].map((_, i) => (
+                                                {[...Array(Math.floor(t.rating))].map((_, i) => (
                                                     <Star key={i} className="w-5 h-5 text-yellow-500 fill-current" />
                                                 ))}
+                                                {t.rating % 1 > 0 && (
+                                                    <div className="relative w-5 h-5">
+                                                        <Star className="absolute w-5 h-5 text-muted/20" />
+                                                        <div className="absolute overflow-hidden" style={{ width: `${(t.rating % 1) * 100}%` }}>
+                                                            <Star className="w-5 h-5 text-yellow-500 fill-current" />
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </div>
 
                                             <p className="text-xl md:text-2xl font-serif italic text-muted-foreground leading-relaxed">
