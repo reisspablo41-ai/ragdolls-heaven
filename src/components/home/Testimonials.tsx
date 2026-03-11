@@ -8,25 +8,25 @@ import Autoplay from 'embla-carousel-autoplay'
 export function Testimonials() {
     const testimonials = [
         {
-            name: "Sarah & John",
-            location: "New York, NY",
-            content: "We couldn't be happier with our kitten from Ragdoll Heaven. He is so well-socialized and affectionate. The whole process was professional and transparent.",
-            rating: 5,
-            initials: "SJ"
+            name: "The Anderson Family",
+            location: "Scarsdale, NY",
+            content: "Picking up our kitten was such a joy. Ragdoll Heaven clearly puts so much love into their cats. Our little guy is the most affectionate companion we've ever had!",
+            rating: 4.8,
+            initials: "AF"
         },
         {
-            name: "Emily R.",
+            name: "Rebecca L.",
+            location: "Boston, MA",
+            content: "Best breeder experience ever! Luna is gentle, beautiful, and so well-socialized. She's been a perfect addition to our family.",
+            rating: 5,
+            initials: "RL"
+        },
+        {
+            name: "Chen & Wei",
             location: "San Francisco, CA",
-            content: "Best breeder experience I've ever had. My ragdoll Luna is exactly as described - gentle, floppy, and incredibly beautiful. Highly recommend!",
-            rating: 5,
-            initials: "ER"
-        },
-        {
-            name: "Michael Chen",
-            location: "Austin, TX",
-            content: "The genetic health guarantee gave us peace of mind, but the kitten's personality stole our hearts. He follows us everywhere!",
-            rating: 5,
-            initials: "MC"
+            content: "We were impressed by the genetic health guarantee and the professionalism. Our kitten's personality is exactly what we hoped for.",
+            rating: 4.7,
+            initials: "CW"
         }
     ]
 
